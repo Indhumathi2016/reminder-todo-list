@@ -109,7 +109,10 @@ function AddTodo({ isShowAddModal }) {
               validator(rule, value) {
                 let userDate = moment(value);
                 let currentDate = moment();
-                if (userDate.diff(currentDate, 'day') < 0) {
+                if (
+                  userDate.diff(currentDate, 'day') < 0 &&
+                  userDate.diff(currentDate, 'minutes') <= 30
+                ) {
                   return Promise.reject(
                     'Time should be greater the 30 mins to the current time',
                   );
