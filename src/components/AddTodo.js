@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, DatePicker, Form, Input, Modal, Select } from 'antd';
 import { startCase } from 'lodash';
+import moment from 'moment';
 import { store } from '../redux/store';
 import actions from '../redux/Todo/actions';
 import { generateRandomId } from '../components/helper';
@@ -21,6 +22,8 @@ function AddTodo({ isShowAddModal }) {
     });
     store.dispatch({ type: actions.SET_ADD_MODAL_VISIBLE, payload: false });
   }
+  const disabledDate = (current) =>
+    current && current < moment().startOf('day');
   return (
     <Modal
       title={<div>Add</div>}
@@ -102,9 +105,25 @@ function AddTodo({ isShowAddModal }) {
               required: true,
               message: "Time can't be blank",
             },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                let userDate = moment(value);
+                let currentDate = moment();
+                if (userDate.diff(currentDate, 'day') < 0) {
+                  return Promise.reject(
+                    'Time should be greater the 30 mins to the current time',
+                  );
+                }
+                return Promise.resolve('');
+              },
+            }),
           ]}
         >
-          <DatePicker showTime format="YYYY-MM-DD HH:mm" />
+          <DatePicker
+            showTime
+            format="YYYY-MM-DD HH:mm"
+            disabledDate={disabledDate}
+          />
         </Form.Item>
       </Form>
     </Modal>
