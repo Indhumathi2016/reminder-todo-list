@@ -25,7 +25,6 @@ function AddTodo({ isShowAddModal }) {
     <Modal
       title={<div>Add</div>}
       visible={isShowAddModal}
-      // onCancel={handleCancel}
       width={500}
       footer={[
         <Button form="add-todo" key="submit" type="primary" htmlType="submit">
