@@ -103,7 +103,7 @@ function Todo({ todo, index }) {
             </span>
           </div>
         ) : (
-          <div>Time exceeds</div>
+          <b className={'time-remain'}>Time exceeds</b>
         )}
       </div>
     </TodoCard>

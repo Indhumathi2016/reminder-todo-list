@@ -73,6 +73,7 @@ export const TodoCard = styled(Card)`
       line-height: 1.5;
     }
     .time-remain {
+      margin-top: 10px;
       span {
         font-weight: 600;
       }
